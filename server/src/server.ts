@@ -18,3 +18,6 @@ app.use(routes);
 
 // Start the server on the port
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
+//  modular routing in fsf
+
+// start the server.ts to begin to establish the communication. Then follow the crumbs to the APIs

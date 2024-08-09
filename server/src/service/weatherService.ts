@@ -28,4 +28,5 @@ class WeatherService {
   // async getWeatherForCity(city: string) {}
 }
 
+// object approach to this like the vehicle builder/alsmo mini project
 export default new WeatherService();
