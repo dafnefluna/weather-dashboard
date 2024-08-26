@@ -1,33 +1,28 @@
 import { Router } from 'express';
 const router = Router();
-
-import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
+import HistoryService from '../../service/historyService.js'; // Import HistoryService
 
-// TODO: POST Request with city name to retrieve weather 
-// do this after server.ts
-// when I run into a blocker go into services
-router.post('/', (req, res) => {
-  // TODO: GET weather data from city name
-  WeatherService.cityName;
-  req.body.
-  // TODO: save city to search history
-  
+router.post('/', async (req, res) => {
+  const cityName = req.body.city;
+  try {
+    const weatherService = new WeatherService();
+    const locationData = await weatherService.fetchLocationData(cityName);
+    res.json(locationData);
+  } catch(error) {
+    console.error('Error fetching weather data:', error);
+    res.status(500).json({ error: 'Failed to fetch weather data' });
+  }
 });
 
-// TODO: GET search history
 router.get('/history', async (_req, res) => {
   try {
-    const savedCity = await WeatherService();
-    res.json(savedCity);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    const searchHistory = HistoryService.getSearchHistory(); // Use HistoryService to get search history
+    res.json(searchHistory);
+  } catch (error) {
+    console.error('Error fetching search history:', error);
+    res.status(500).json({ error: 'Failed to fetch search history' });
   }
-  
 });
-
-// * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {});
 
 export default router;
